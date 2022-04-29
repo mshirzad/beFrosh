@@ -1,0 +1,213 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>Login</title>
+{% endblock title %} {% block files %}
+<!-- <script src="{% static 'seller/js/auth.js' %}" defer></script> -->
+<script src="{% static 'product/js/product.js' %}" defer></script>
+<script src="{% static 'product/js/prod-detail.js' %}" defer></script>
+<script src="{% static 'product/css/prod-detail.css' %}" defer></script>
+{% endblock files %} {% block content %}
+
+<body class="body-wrapper">
+  {% include 'banner.html' %}
+
+  <!--===================================
+=            Store Section            =
+====================================-->
+  <section class="section bg-gray">
+    <!-- Container Start -->
+    <div class="container">
+      <div class="row">
+        <!-- Left sidebar -->
+        <div class="col-md-8">
+          <div class="product-details">
+            <h1 class="product-title">{{product.desc}}</h1>
+            <div class="product-meta">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <i class="fa fa-user-o"></i> By
+                  <a href=""
+                    >{{product.seller.user_name.first_name}}
+                    {{product.seller.user_name.last_name}}</a
+                  >
+                </li>
+                <li class="list-inline-item">
+                  <i class="fa fa-folder-open-o"></i> Category<a href=""
+                    >{{product.catagory}}</a
+                  >
+                </li>
+                <li class="list-inline-item">
+                  <i class="fa fa-location-arrow"></i> Location<a href=""
+                    >{{product.seller.address.province}},{{product.seller.address.country}}</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- product slider -->
+            <div class="product-slider">
+              <div
+                class="product-slider-item my-4"
+                data-image="images/computer.jpg"
+              >
+                <img
+                  class="img-fluid w-100"
+                  src="{{ product.image.url }}"
+                  alt="product-img"
+                />
+              </div>
+              <!-- <div class="product-slider-item my-4" data-image="images/hurt.jpg">
+								<img class="d-block img-fluid w-100" src="{% static 'images/hurt.jpg' %}" alt="Second slide">
+							</div>
+							<div class="product-slider-item my-4" data-image="images/products/products-3.jpg">
+								<img class="d-block img-fluid w-100" src="{% static 'images/products/products-3.jpg' %}"
+									alt="Third slide">
+							</div>
+							<div class="product-slider-item my-4" data-image="images/products/products-1.jpg">
+								<img class="d-block img-fluid w-100" src="{% static 'images/products/products-1.jpg' %}"
+									alt="Third slide">
+							</div>
+							<div class="product-slider-item my-4" data-image="images/products/products-2.jpg">
+								<img class="d-block img-fluid w-100" src="{% static 'images/products/products-2.jpg' %}"
+									alt="Third slide">
+							</div> -->
+            </div>
+            <!-- end product slider -->
+
+            <!-- Comment part  -->
+            <div class="content mt-5 mb-5 pt-5">
+              <form action="" id="comment-form">
+                <h6 class="font-weight-bold pt-4 pb-1">Comment</h6>
+                <p id="comment-msg"></p>
+                <input
+                  name=""
+                  id="text"
+                  class="border text-dark p-2 w-100"
+                  placeholder="Write your comment"
+                />
+                <!-- <select  id="rating-search" class="w-100 form-control mt-lg-1 mt-md-2">
+													<option>Category</option>
+													<option value="1">Top rated</option>
+													<option value="2">Lowest Price</option>
+													<option value="4">Highest Price</option>
+												</select> -->
+                <h6 class="font-weight-bold pt-4 pb-1">Rating</h6>
+
+                <input
+                  type="range"
+                  id="rating"
+                  class="border text-dark p-2 w-100"
+                  placeholder="Write your comment"
+                />
+                <button
+                  type="submit"
+                  id="{{ product.p_pk }}"
+                  class="btn btn-dark p-2 mt-2 pl-3 d-block ml-auto post-btn"
+                >
+                  Post<i class="p-1 fa fa-arrow-circle-right"></i>
+                </button>
+              </form>
+
+              <div class="pt-3"></div>
+            </div>
+            {% if comments %}
+            <div class="container d-flex justify-content-center mt-100 mb-100">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        Recent Comments - {{ comments.count }}
+                      </h4>
+                    </div>
+                    <div class="comment-widgets m-b-20">
+                      {% for comment in comments %}
+                      <div class="d-flex flex-row comment-row">
+                        <div class="p-2">
+                          <span class="round"
+                            ><img
+                              src="{{comment.commenter.photo.url}}"
+                              alt="user"
+                              width="50"
+                          /></span>
+                        </div>
+                        <div class="comment-text w-100">
+                          <h5>
+                            {{comment.commenter.user_name.first_name}}
+                            {{comment.commenter.user_name.last_name}}
+                          </h5>
+                          <div class="comment-footer">
+                            <span class="date">{{ comment.pretty_date }}</span>
+                          </div>
+                          <p class="m-b-5 m-t-10" style="width: 55%">
+                            {{comment.text|truncatechars:100}}
+                          </p>
+                        </div>
+                      </div>
+                      <hr />
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="sidebar" style="margin-top: -35px; width: 300px">
+            <div class="widget bg-dark rounded-pill price text-center">
+              <h4>Price</h4>
+              <p>{{product.price}}</p>
+            </div>
+            <!-- User Profile widget -->
+            <div class="widget user text-center">
+              <img
+                class="rounded-circle img-fluid mb-5 px-5"
+                src="{{product.seller.photo.url}}"
+                alt=""
+              />
+              <h4>
+                <a href=""
+                  >{{product.seller.user_name.first_name}}
+                  {{product.seller.user_name.last_name}}</a
+                >
+              </h4>
+              <p class="member-time">Member Since Jun 27, 2017</p>
+              <a href="">See all ads</a>
+              <ul class="list-inline mt-20">
+                <li class="list-inline-item">
+                  <a
+                    href="tel:{{prouct.seller.phone_no}}"
+                    class="
+                      btn btn-contact
+                      d-inline-block
+                      btn-dark
+                      px-lg-5
+                      my-1
+                      px-md-3
+                    "
+                    ><i class="fa fa-phone" aria-hidden="true"></i> Call</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- Safety tips widget -->
+            <div class="widget disclaimer">
+              <h5 class="widget-header">Safety Tips</h5>
+              <ul>
+                <li>Meet seller at a public place</li>
+                <li>Check the item before you buy</li>
+                <li>Pay only after collecting the item</li>
+                <li>Pay only after collecting the item</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Container End -->
+  </section>
+  {% endblock content %}
+</body>

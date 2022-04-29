@@ -1,0 +1,162 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>Profile</title>
+{% endblock title %} {% block files %}
+<script src="{% static 'seller/js/auth.js' %}" defer></script>
+<script src="{% static 'seller/js/seller.js' %}" defer></script>
+{% endblock files %} {% block content %}
+
+<body class="body-wrapper">
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<nav class="navbar navbar-expand-lg navbar-light navigation">
+						<a class="navbar-brand" href="{% url 'mainApp:home' %}">
+							<img src="{% static 'images/logo.png' %}" class="" style="height: 45px;" alt="">
+						</a>
+				</div>
+				</nav>
+			</div>
+		</div>
+		</div>
+	</section>
+	<!--==================================
+=            User Profile            =
+===================================-->
+
+	<section class="user-profile section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 offset-md-1 col-lg-3 offset-lg-0">
+					<div class="sidebar">
+						<!-- User Widget -->
+						<div class="widget user">
+                        <!-- User Image -->
+							<div class="image d-flex justify-content-center">
+                                {% if user.seller.photo %}
+
+								<img src="{{user.seller.photo.url }}" alt="" class="">
+                                {% else %}
+                                <img src="{% static 'images/profile.jpeg' %}" alt="" class="">
+                                {% endif %}
+
+							</div>
+							<!-- User Name -->
+							<h5 class="text-center">{{user.first_name }} {{ user.last_name }}</h5>
+							<p class="text-center">{{user.username}}</p>
+						</div>
+						<!-- Dashboard Links -->
+						<div class="widget dashboard-links" style="width: 200px;">
+							<ul>
+								<li><a class="my-1 d-inline-block" href="{% url 'product:my-listings' %}">My Listings - <span>{{my_listings_len}}</span></a></li>
+								<li><a class="my-1 d-inline-block" href="{% url 'product:favorites' %}">Favorites - <span>{{favorites_len}}</span></a></li>
+								<li><a class="my-1 d-inline-block" href="{% url 'product:add-product' %}">Add Product</a></li>
+								<li><a class="my-1 d-inline-block" href="{% url 'seller:change-password' %}">Change Password</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-10 offset-md-1 col-lg-9 offset-lg-0">
+					<!-- Edit Profile Welcome Text -->
+					<div class="widget welcome-message">
+						<h2>
+
+                            {% if seller %}
+                            Update Profile
+                            {% else %} 
+                            Add Account
+                            {% endif %}
+                        </h2>
+						<p class="error" id="update-error-msg"></p>
+					</div>
+					<!-- Edit Personal Info -->
+					<form action="" id="profile-change-form">
+
+						<div class="row">
+							<div class="col-lg-6 col-md-6">
+								<div class="widget personal-info">
+									<h3 class="widget-header user">Personal Information</h3>
+									<!-- First Name -->
+									<div class="form-group">
+										<label for="first-name">First Name</label>
+										<input id="first_name"  value="{{user.first_name}}" type="text" class="form-control" id="first-name">
+									</div>
+									<!-- Last Name -->
+									<div class="form-group">
+										<label for="last-name">Last Name</label>
+										<input  id="last_name" value="{{user.last_name}}" type="text" class="form-control" id="last-name">
+									</div>
+									<!-- Username -->
+									<div class="form-group">
+										<label for="last-name">Username</label>
+										<input id="username" value="{{user.username}}" type="text" class="form-control" id="username">
+									</div>
+									<!-- Email  -->
+									<div class="form-group">
+										<label for="email">Email</label>
+										<input id="email" value="{{user.email}}" type="email" class="form-control" id="email">
+									</div>
+									<!-- File chooser -->
+									<div class="form-group choose-file d-inline-flex">
+										<i class="fa fa-user bg-dark text-center px-3"></i>
+										<input  id="usrpic" type="file" class="form-control-file mt-2 pt-1" id="input-file">
+									</div>
+                                   
+									<!-- Checkbox -->
+									<!-- <div class="form-check">
+										<label class="form-check-label" for="hide-profile">
+											<input class="form-check-input mt-1" type="checkbox" value=""
+												id="hide-profile">
+											Hide Profile from Public/Comunity
+										</label>
+									</div> -->
+
+
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6">
+								<!-- Change Password -->
+								<div class="widget change-password">
+									<h3 class="widget-header user">Contact & Address Information</h3>
+									<!-- Address -->
+									<div class="form-group">
+										<label for="">Country</label>
+										<input id="country"  value="{{user.seller.address.country}}" type="text" class="form-control" id="country">
+									</div>
+									<!-- Address -->
+									<div class="form-group">
+										<label for="">Province</label>
+										<input id="province"  value="{{user.seller.address.province}}"  type="text" class="form-control" id="provence">
+									</div>
+									<!-- Address -->
+									<div class="form-group">
+										<label for="">Home Address</label>
+										<input id="region" value="{{user.seller.address.region}}" type="text" class="form-control" id="home-adderss">
+									</div>
+									<!-- Address -->
+									<div class="form-group">
+										<label for="">Phone Number/Whatsapp</label>
+										<input id="whatsapp_no" value="{{user.seller.whatsapp_no}}" type="number" class="form-control" id="phone-number">
+									</div>
+                                    <div class="form-group">
+										<label for="">Phone Number</label>
+										<input id="phone_no" value="{{user.seller.phone_no}}" type="number" class="form-control" id="phone-number">
+									</div>
+									
+									<!-- Submit button -->
+									<button type="submit" class="btn btn-outline-dark">Save My Changes</button>
+								</div>
+							</div>
+
+					</form>
+				</div>
+				<div class="col-lg-6 col-md-6">
+
+				</div>
+			</div>
+
+		</div>
+
+	</section>
+
+	{% endblock content %}

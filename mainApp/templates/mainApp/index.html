@@ -1,0 +1,168 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>Exploring Page</title>
+{% endblock title %} {% block files %}
+
+<script src="{% static 'mainApp/js/index.js' %}" defer></script>
+<script src="{% static 'mainApp/js/search.js' %}" defer></script>
+{% endblock files %} {% block content %}
+<body class="body-wrapper">
+
+
+	{% include 'banner.html' %}
+
+	<!--===============================
+=            Hero Area            =
+================================-->
+
+	<section class="hero-area bg-1 text-center overly">
+		<!-- Container Start -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<!-- Header Contetnt -->
+					<div class="content-block">
+						<h1>Buy & Sell Every Thing </h1>
+						<p>Join the millions who buy and sell from each other <br> everyday in local communities around
+							the world</p>
+						<div class="short-popular-category-list text-center">
+							<h2>Popular Category</h2>
+							<ul class="list-inline">
+								<li class="list-inline-item">
+									<a class="catagory-btn" catagory='house-hold' href=""><i class="fa fa-bed" ></i>House Hold </a>
+								</li>
+								<li class="list-inline-item">
+									<a class="catagory-btn" catagory='books' href=""><i class="fa fa-book"></i>Books</a>
+								</li>
+								<li class="list-inline-item">
+									<a  class="catagory-btn" catagory='cars' href=""><i class="fa fa-car"></i>Cars</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="catagory-btn" catagory='tools' href=""><i class="fa fa-magnet"></i>Tools</a>
+								</li>
+								<li class="list-inline-item">
+									<a  class="catagory-btn" catagory='cloths' href=""><i class="fa fa-tshirt"></i>Cloths</a>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+					<!-- Advance Search -->
+					<div class="advance-search">
+						<div class="container">
+							<div class="row justify-content-center">
+								<div class="col-lg-12 col-md-12 align-content-center">
+									<form>
+										<div class="form-row">
+											<div class="form-group col-md-4">
+												<input  id="text-search" type="text" class="form-control my-2 my-lg-1" id="inputtext4"
+													placeholder="What are you looking for">
+											</div>
+											<div class="form-group col-md-3">
+												<select  id="rating-search" class="w-100 form-control mt-lg-1 mt-md-2">
+													<option selected="true" disabled="disabled">Category</option>
+													<option value="top-rating">Top rated</option>
+													<option value="lowest-price">Lowest Price</option>
+													<option value="high-price">Highest Price</option>
+												</select>
+											</div>
+											<div class="form-group col-md-3">
+												<input id="location-search" type="text" class="form-control my-2 my-lg-1" id="inputLocation4"
+													placeholder="Location">
+											</div>
+												<div class="form-group col-md-2 align-self-center">
+												<a style="color: rgba(255, 255, 255, 0.815);" href="{% url 'product:add-product' %}"class="btn btn-dark">Add Product</a>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- Container End -->
+	</section>
+	<!-- Exploring page  -->
+	<section class="popular-deals section bg-gray">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-title">
+						<h2>All Category </h2>
+						<p>You can find the best products</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row products-list">
+				<!-- offer 01 -->
+                {% for prod in products %}
+				<div class="col-lg-3 offset-lg-0 col-md-5 offset-md-1 col-sm-6 col-6">
+					<!-- product card -->
+					<div class="product-item bg-light">
+						<div class="card">
+							<div class="thumb-content">
+								<!-- <div class="price">$200</div> -->
+								<a href="{% url 'product:product-details' prod.pk  %}">
+                                    {% if prod.image %}
+
+									<img style="max-height: 300px;"  class="card-img-top img-fluid" src="{{ prod.image.url }}" alt="Card image cap">
+                                    {% else %}
+                                    <img class="card-img-top img-fluid" src="{% static 'images/prod.png' %}" alt="Card image cap">
+                                {% endif %}
+								</a>
+							</div>
+							<div class="card-body">
+								<h4 class="card-title"><a href="detail.html">{{ prod.title }} 
+
+
+
+                                </a></h4>
+								<ul class="list-inline product-meta">
+									<!-- Name of user -->
+									<li class="list-inline-item">
+										<a href="#" class=""><i class="fa fa-user"></i>by: {{ prod.seller.user_name.username }}</a>
+									</li>
+									<li class="list-inline-item">
+										<a href="detail.html"><i class="fa fa-folder-open-o"></i>{{prod.catagory}}</a>
+									</li>
+									<li class="list-inline-item">
+										<a href="#"><i class="fa fa-calendar"></i>{{ prod.product_add }}</a>
+									</li>
+								</ul>
+
+								<p class="card-text"> {{ prod.price }} $<br>{{prod.desc|truncatechars:30}}</p>
+
+								<!-- ADD THIS POST TO FAVORITES  -->
+                                {% if prod.no_rating %}
+                                        ({{ prod.total_rating|floatformat }})/{{ prod.no_rating|floatformat }}
+
+                                        {% for i in  prod.total_rating|floatformat:0   %}
+                                                <span class="fa fa-star checked"></span>
+                                        {% endfor %}                                      
+                                {% endif %}
+								<div  class="float-right "> 
+									<a id="fav-btn" class="">
+										<i id="{{ prod.pk }}" class="fa fa-bookmark-o fav-btn"></i>
+									</a>
+                        
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+{% endfor %}
+
+
+			</div>
+		</div>
+	</section>
+
+
+</body>
+
+{% endblock content %}

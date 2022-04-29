@@ -1,0 +1,104 @@
+
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>Login</title>
+{% endblock title %} {% block files %}
+<script src="{% static 'seller/js/product.js' %}" defer></script>
+{% endblock files %} {% block content %}
+
+<body class="body-wrapper">
+
+{% include 'banner.html' %}
+
+  <section class="ad-post bg-gray py-5">
+    <div class="container">
+      <form action="#" id='product-form'>
+        <!-- Post Your item start -->
+        <fieldset class="border border-gary p-4 mb-5">
+          <div class="row">
+            <div class="col-lg-12">
+              <h3>Post Your Item For Sale</h3>
+              <p class="error" id="add-product-msg">
+                  
+              </p>
+            </div>
+            <div class="col-lg-6">
+              <h6 class="font-weight-bold pt-4 pb-1">Title Of Item</h6>
+              <input id="title" type="text" class="border w-100 p-2 bg-white text-capitalize" placeholder="Item title">
+
+              <h6 class="font-weight-bold pt-4 pb-1">Description:</h6>
+              <textarea id="desc" name="" id="" class="border p-3 w-100" rows="7"
+                placeholder="Write details about your product"></textarea>
+            </div>
+            <div class="col-lg-6">
+              <h6 class="font-weight-bold pt-4 pb-1">Select Item Category:</h6>
+              <select id="catagory" name="" id="inputGroupSelect" class="w-100">
+                <option value="cars">Select category</option>
+                <option value="cars">Cars</option>
+
+                <option value="tools">Tools</option>
+                <option value="cloths">Cloths</option>
+                <option value="books">Books</option>
+                <option value="electronics">Electronics</option>
+                <option value="others">Others</option>
+
+              </select>
+              <div class="price">
+                <h6 class="font-weight-bold pt-4 pb-1">Item Price ($ USD):</h6>
+                <div class="row px-3">
+                  <div class="col-lg-4 mr-lg-4 rounded bg-white my-2 ">
+                    <input id="price" type="text" name="price" class="border-0 py-2 w-100 price" placeholder="Price" id="price">
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="choose-file text-center my-4 py-4 rounded">
+                <label for="file-upload">
+                  <span class="d-block font-weight-bold text-dark">Drop files anywhere to upload</span>
+                  <!-- <span class="d-block">or</span> -->
+                  <!-- <span class="d-block btn btn-outline-dark  my-3 select-files">Select files</span> -->
+                  <span class="d-block">Maximum upload file size: 50Mb</span>
+                  <!-- <input id="product-pic" type="file" name="file" id="" class="form-control-file d-none" > -->
+                  <input id="product-pic" type="file" name="file" id="" class="form-control-file" >
+                </label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <!-- Post Your item end -->
+
+        <!-- seller-information start -->
+        <fieldset class="border p-4 my-5 seller-information bg-gray">
+          <div class="row">
+            <div class="col-lg-12">
+              <h3>Seller Information</h3>
+            </div>
+            <div class="col-lg-6">
+              <h6 class="font-weight-bold pt-4 pb-1">Contact Name:</h6>
+              <input id="seller-name" type="text" placeholder="Contact name" class="border w-100 p-2">
+              <h6 class="font-weight-bold pt-4 pb-1">Contact Number:</h6>
+              <input id="seller-no" type="text" placeholder="Contact Number/Whatsapp" class="border w-100 p-2">
+            </div>
+            <div class="col-lg-6">
+
+              <h6 class="font-weight-bold pt-4 pb-1"> Address:</h6>
+              <input id="seller-add" type="text" placeholder="Your address" class="border w-100 p-2">
+            </div>
+          </div>
+        </fieldset>
+        <!-- seller-information end-->
+
+
+
+        <!-- submit button -->
+        <div class="checkbox d-inline-flex">
+          <input type="checkbox" id="terms-&-condition" class="mt-1">
+          <label for="terms-&-condition" class="ml-2">By click you must agree with our
+            <span> <a class="text-success" href="terms-condition.html">Terms & Condition and Posting Rules.</a></span>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-outline-dark d-block mt-2 ml-auto">Post Your Item</button>
+      </form>
+    </div>
+  </section>
+  {% endblock content %}
