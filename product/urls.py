@@ -15,7 +15,7 @@ urlpatterns = [
     path('search/', views.search_products, name='search-products'),
 
     path('add-comment/', views.add_comment, name='add-comment'),
-    path('delete-product/', views.delete_item, name='delete-product'),
+    path('delete-product/<str:prod_pk>/', views.delete_item, name='delete-product'),
     path('delete-fave/', views.delete_fave, name='delete-fave'),
 
 

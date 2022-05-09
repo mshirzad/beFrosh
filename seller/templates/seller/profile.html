@@ -46,14 +46,42 @@
 							<p class="text-center">{{user.username}}</p>
 						</div>
 						<!-- Dashboard Links -->
-						<div class="widget dashboard-links" style="width: 200px;">
+						<div class="widget user-dashboard-menu" style="width: 250px;">
+							<ul>
+								<li>
+									<a href="{% url 'product:add-product' %}" ><i class="fa fa-inventory"></i> Add Product
+										</a>
+								</li>
+								<li>
+									<a href="{% url 'product:my-listings' %}" ><i class="fa fa-user"></i> My
+										Items - <span>{{my_listings_len}}</span> </a>
+								</li>
+								<li>
+									<a href="{% url 'product:favorites' %}"><i class="fa fa-bookmark-o"></i> Favorite
+										Items - <span>{{favorites_len}}</span></a>
+								</li>
+								<li>
+									<a href="{% url 'seller:change-password' %}" data-toggle="modal" ><i
+											class="fa fa-cog"></i>Change Password</a>
+								</li>
+								<li>
+									<a href="" data-toggle="modal" data-target="#deleteaccount"><i
+											class="fa fa-power-off"></i>Delete Account</a>
+								</li>
+								<li>
+									<a href="{% url 'seller:logout' %}"><i class="fa fa-share"></i> Logout</a>
+								</li>
+								
+							</ul>
+						</div>
+						{% comment %} <div class="widget dashboard-links" style="width: 200px;">
 							<ul>
 								<li><a class="my-1 d-inline-block" href="{% url 'product:my-listings' %}">My Listings - <span>{{my_listings_len}}</span></a></li>
 								<li><a class="my-1 d-inline-block" href="{% url 'product:favorites' %}">Favorites - <span>{{favorites_len}}</span></a></li>
 								<li><a class="my-1 d-inline-block" href="{% url 'product:add-product' %}">Add Product</a></li>
 								<li><a class="my-1 d-inline-block" href="{% url 'seller:change-password' %}">Change Password</a></li>
 							</ul>
-						</div>
+						</div> {% endcomment %}
 					</div>
 				</div>
 				<div class="col-md-10 offset-md-1 col-lg-9 offset-lg-0">

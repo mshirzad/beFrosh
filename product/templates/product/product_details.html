@@ -49,11 +49,13 @@
                 class="product-slider-item my-4"
                 data-image="images/computer.jpg"
               >
+                {% if product.image %}
                 <img
                   class="img-fluid w-100"
                   src="{{ product.image.url }}"
                   alt="product-img"
                 />
+                {% endif %}
               </div>
               <!-- <div class="product-slider-item my-4" data-image="images/hurt.jpg">
 								<img class="d-block img-fluid w-100" src="{% static 'images/hurt.jpg' %}" alt="Second slide">
@@ -162,11 +164,13 @@
             </div>
             <!-- User Profile widget -->
             <div class="widget user text-center">
+              {% if product.seller.photo %}
               <img
                 class="rounded-circle img-fluid mb-5 px-5"
                 src="{{product.seller.photo.url}}"
                 alt=""
               />
+              {% endif %}
               <h4>
                 <a href=""
                   >{{product.seller.user_name.first_name}}
@@ -179,14 +183,7 @@
                 <li class="list-inline-item">
                   <a
                     href="tel:{{prouct.seller.phone_no}}"
-                    class="
-                      btn btn-contact
-                      d-inline-block
-                      btn-dark
-                      px-lg-5
-                      my-1
-                      px-md-3
-                    "
+                    class="btn btn-contact d-inline-block btn-dark px-lg-5 my-1 px-md-3"
                     ><i class="fa fa-phone" aria-hidden="true"></i> Call</a
                   >
                 </li>

@@ -1,3 +1,4 @@
+import imp
 import io
 import json
 import os
@@ -11,6 +12,7 @@ from rest_framework.parsers import JSONParser
 
 from seller.models import Seller, Location
 from product.models import Product, FaveProduct
+from beFrosh.settings import DOMAIN
 
 
 @login_required(login_url='/seller/login/')
@@ -20,7 +22,7 @@ def logout_(request):
 
 
 def loginView(request):
-    success_url = 'http://127.0.0.1:8000/seller/become-seller/'
+    success_url = f'{DOMAIN}/seller/become-seller/'
 
     if request.user.is_authenticated:
         return redirect('seller:become-seller')
@@ -49,7 +51,7 @@ def loginView(request):
             if user is not None:
                 login(request, user)
                 nexturl = data.get('next')
-                success_url = 'http://127.0.0.1:8000/'+nexturl
+                success_url = f'{DOMAIN}/'+nexturl
 
                 resp = {'error': False, 'message': "LOGIN SUCCESSFULL",
                         'success_url': '/'}
@@ -69,7 +71,7 @@ def loginView(request):
 
 @login_required(login_url='/seller/login/')
 def changePassword(request):
-    success_url = 'http://127.0.0.1:8000/seller/become-seller/'
+    success_url = f'{DOMAIN}/seller/become-seller/'
 
     if request.method == 'GET':
         return render(request, 'seller/changepass.html')

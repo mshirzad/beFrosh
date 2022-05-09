@@ -1,9 +1,17 @@
+import os
+import uuid
+
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.contrib.auth.models import User
 
 # from product.models import Product
 
+def image_path_generator(instance, filename):
+    extension = filename.split('.')[-1]
+    filename = f'{uuid.uuid4()}.{extension}'
+
+    return os.path.join(f'sellers/', filename)
 
 class Location (models.Model):
     country = models.CharField(max_length=128)
@@ -19,7 +27,7 @@ class Location (models.Model):
 
 
 class Seller (models.Model):
-    photo = models.ImageField(null=True, upload_to='images', blank=True)
+    photo = models.ImageField(null=True, upload_to=image_path_generator, blank=True)
     phone_no = models.IntegerField()
     whatsapp_no = models.IntegerField(null=True)
     rating = models.FloatField()

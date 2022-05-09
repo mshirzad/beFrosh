@@ -1,4 +1,3 @@
-import io
 import json
 
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -8,10 +7,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
-from rest_framework.parsers import JSONParser
-
 from product.models import Product, FaveProduct, ProdComment, Rating
 from seller.models import Seller
+from beFrosh.settings import DOMAIN
 
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
@@ -24,7 +22,7 @@ def productDetails(request, prod_pk):
     comments = ProdComment.objects.filter(
         product=product).order_by('-pub_date')
     context = {'product': product, 'comments': comments}
-
+    print("inside the prod detail", product.seller.user_name.username)
     return render(request, 'product/product_details.html', context)
 
 
@@ -82,7 +80,7 @@ def addProduct(request):
 
 @login_required(login_url='/seller/become-seller/')
 def add_fav(request):
-    success_url = 'http://127.0.0.1:8000/seller/become-seller/'
+    success_url = f'{DOMAIN}/seller/become-seller/'
 
     if request.user.is_authenticated:
         product_id = json.loads(request.body).get('product_id')
@@ -264,7 +262,8 @@ def add_comment(request):
         return JsonResponse({'error': True, 'message': 'Login First'})
 
 
-def delete_item(request):
+def delete_item(request, prod_pk):
+    print("delete item called in view.py")
     user = request.user
     if user.is_authenticated:
         product_id = json.loads(request.body)['product_id']
@@ -273,6 +272,7 @@ def delete_item(request):
 
         if user.id == seller.user_name.id:
             product.delete()
+            product.save()
             return JsonResponse({'error': False, 'message': 'Successfully Deleted'})
         else:
             return JsonResponse({'error': True, 'message': 'Permission Denied'})

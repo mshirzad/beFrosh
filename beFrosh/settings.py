@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-p9on10(^ft+b@yu$-*lf@z-^2pu3czanj(j*#sk*%ptpu^%vp(
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
-
+DOMAIN = 'http://127.0.0.1:8000'
 
 # Application definition
 

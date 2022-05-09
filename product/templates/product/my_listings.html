@@ -169,7 +169,9 @@
 												</li>
 												<li class="list-inline-item">
 													<a  data-toggle="tooltip" data-placement="top" title="Delete"
-														class="delete" id="{{ prod.p_pk }}" >
+														class="delete" id="{{ prod.p_pk }}" 
+														href="{% url 'product:delete-product' prod.pk  %}"
+														>
 														<i class="fa fa-trash"></i>
 													</a>
 												</li>

@@ -1,10 +1,16 @@
 import uuid
+import os
 
 from django.db import models
 from django.db.models.deletion import CASCADE
 from seller.models import Seller
 from django.utils import timezone
 
+def image_path_generator(instance, filename):
+    extension = filename.split('.')[-1]
+    filename = f'{uuid.uuid4()}.{extension}'
+
+    return os.path.join(f'products/', filename)
 
 class Product (models.Model):
     p_pk = models.UUIDField(primary_key=True, default=uuid.uuid4)
@@ -14,7 +20,7 @@ class Product (models.Model):
     catagory = models.CharField(max_length=128)
     sold_status = models.BooleanField(default=False)
     image = models.ImageField(
-        upload_to='product-images', blank=True, null=True)
+        upload_to=image_path_generator, blank=True, null=True)
     seller = models.ForeignKey(
         Seller, related_name='product', on_delete=CASCADE)
 
